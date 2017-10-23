@@ -34,9 +34,11 @@ var renderSomethingOnThePage = function(message) {
     '<br/>'
   ].join('');
 
+  console.log('I rendered Something');
+
   /* Question:
    * How would you modify this template to add style to the look of the page?
-   *
+   *You could add a class and render styling in a CSS file
    * _Look below for one possible solution._
    */
 
@@ -51,13 +53,15 @@ var renderSomethingOnThePage = function(message) {
 // Let's try it out:
 renderSomethingOnThePage(
   'This is an example of how to use our rendering method.');
+// renderSomethingOnThePage('look at me go');
+// renderSomethingOnThePage('I\'m RENDERINGER');
 
 /* Here are a few more examples. Every call to our rendering function (above)
  * will draw something to the page using the template defined in that function:
  */
 
-// renderSomethingOnThePage('Each additional message you give this function...');
-// renderSomethingOnThePage('...will draw a new message on the page!');
+renderSomethingOnThePage('Each additional message you give this function...');
+renderSomethingOnThePage('...will draw a new message on the page!');
 
 /* Let's revisit what we have learned from the last exercise.
  * We are working with a different application this time - we are going to be
@@ -101,7 +105,10 @@ var Message = Backbone.Model.extend({
      * Putting it into the initialize function let's us be sure that
      * all models that are created will have event listeners on them.
      */
-    this.on(YOUR CODE HERE);
+    //var message = this.get('message');
+    this.on('change:message', function() {
+      renderSomethingOnThePage(this.get('message'));
+    } );
     /* It is your turn to write the event handler.
      *
      * Make an event listener that will listen for a `change` in this model's
@@ -131,7 +138,7 @@ var Message = Backbone.Model.extend({
 });
 
 /* How would you call the second method?
- *
+ *MessageName.alertThisMessage();
  * Try it yourself, then check out the answer at the bottom of this script.
  */
 
@@ -141,6 +148,7 @@ var myNewMessage = new Message();
 
 // ...and then make a change on that model to see it render
 myNewMessage.set({message: 'someMessage'});
+
 
 
 /* Once the model is rendering on the `change` event, move on to step 3!
